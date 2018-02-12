@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.dagger2demo.bean.Test;
-import com.example.dagger2demo.component.DaggerMainActivityComponent;
+import com.example.dagger2demo.five.FiveActivity;
+import com.example.dagger2demo.four.FourActivity;
 import com.example.dagger2demo.one.OneActivity;
+import com.example.dagger2demo.three.ThreeActivity;
 import com.example.dagger2demo.two.TwoActivity;
 import com.oneway.log.LogUtil;
 
@@ -15,18 +17,19 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.Lazy;
 
 public class MainActivity extends AppCompatActivity {
     @Inject
     Test test;
+    @Inject
+    Lazy<Test> test2;
 
     /**
      * 最简单使用
      */
     private void simpleUse() {
-        DaggerMainActivityComponent.builder()
-                .build()
-                .inject(this);
+        Test test = test2.get();
         LogUtil.i("test地址==>" + test.toString());
     }
 
@@ -51,10 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, TwoActivity.class));
                 break;
             case R.id.btn4: //作用域 Scope:Singleton
+                startActivity(new Intent(this, ThreeActivity.class));
                 break;
             case R.id.btn5://组件依赖 dependence与SubComponent
+                startActivity(new Intent(this, FourActivity.class));
                 break;
             case R.id.btn6://set与map
+                startActivity(new Intent(this, FiveActivity.class));
                 break;
         }
     }

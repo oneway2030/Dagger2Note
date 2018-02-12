@@ -1,8 +1,8 @@
 package com.example.dagger2demo.two.module;
 
+import com.example.dagger2demo.two.ForBoy;
+import com.example.dagger2demo.two.ForGril;
 import com.example.dagger2demo.two.bean.Children;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,13 +14,17 @@ import dagger.Provides;
 @Module
 public class TwoModule {
     @Provides
-    @Named("boy")
+//    @Named("boy")
+    @ForBoy
     public Children provideBoy() {
         return new Children("男孩");
     }
+
     @Provides
-    @Named("gril")
+//    @Named("gril")
+    @ForGril
     public Children provideGril() {
         return new Children("女孩");
     }
+
 }

@@ -3,6 +3,9 @@ package com.example.dagger2demo;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.dagger2demo.three.component.DaggerThreeActivityComponent;
+import com.example.dagger2demo.three.component.ThreeActivityComponent;
+import com.example.dagger2demo.three.module.ThreeModule;
 import com.oneway.log.LogUtil;
 import com.oneway.log.inner.LogcatTree;
 
@@ -11,13 +14,19 @@ import com.oneway.log.inner.LogcatTree;
  */
 
 public class App extends Application {
-
-
+    private ThreeActivityComponent mComponent;
     @Override
     public void onCreate() {
         super.onCreate();
         initLog();
+        mComponent = DaggerThreeActivityComponent.builder()
+                .threeModule(new ThreeModule())
+                .build();
     }
+    public ThreeActivityComponent getCommonComponent() {
+        return mComponent;
+    }
+
 
     private void initLog() {
         LogUtil.getLogConfig()

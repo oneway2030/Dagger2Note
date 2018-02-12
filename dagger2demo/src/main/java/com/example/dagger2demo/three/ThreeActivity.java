@@ -1,12 +1,12 @@
-package com.example.dagger2demo.two;
+package com.example.dagger2demo.three;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.dagger2demo.R;
-import com.example.dagger2demo.two.bean.Children;
-import com.example.dagger2demo.two.component.DaggerTwoActivityComponent;
-import com.example.dagger2demo.two.module.TwoModule;
+import com.example.dagger2demo.three.bean.Test3;
+import com.example.dagger2demo.three.component.DaggerThreeActivityComponent;
+import com.example.dagger2demo.three.module.ThreeModule;
 import com.oneway.log.LogUtil;
 
 import javax.inject.Inject;
@@ -16,28 +16,24 @@ import butterknife.OnClick;
 
 /**
  * Created by oneway on 2018/02/12.
- * 最简单示例
+ * 作用域 Scope:Singleton
  */
-public class TwoActivity extends AppCompatActivity {
-    //    @Named("boy")
-    @Inject
-    @ForBoy
-    Children boy;
-    //    @Named("gril")
-    @Inject
-    @ForGril
-    Children gril;
+public class ThreeActivity extends AppCompatActivity {
 
+    @Inject
+    Test3 one;
+    @Inject
+    Test3 two;
     /**
-     * Qualifier与Named 的使用
+     * Scope 的使用
      */
     private void simpleUse() {
-        DaggerTwoActivityComponent.builder()
-                .twoModule(new TwoModule())
+        DaggerThreeActivityComponent.builder()
+                .threeModule(new ThreeModule())
                 .build()
                 .inject(this);
-        LogUtil.i("boy==>" + boy.tag);
-        LogUtil.i("gril==>" + gril.tag);
+        LogUtil.i("one地址==>" + one.toString());
+        LogUtil.i("two地址==>" + two.toString());
     }
 
     @Override
